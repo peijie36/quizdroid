@@ -1,0 +1,31 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id btn_begin
+id btn_next
+id btn_submit
+id list_view_topics
+id rg_choices
+id txt_chosen_answer
+id txt_correct_answer
+id txt_item
+id txt_question
+id txt_report
+id txt_topic
+id txt_topic_description
+id txt_total_questions
+layout activity_answer
+layout activity_main
+layout activity_questions
+layout activity_topic_overview
+layout list_item
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Base.Theme.Quizdroid
+style Theme.Quizdroid
+xml backup_rules
+xml data_extraction_rules
