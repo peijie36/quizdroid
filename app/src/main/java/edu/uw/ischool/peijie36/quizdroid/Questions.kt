@@ -2,7 +2,6 @@ package edu.uw.ischool.peijie36.quizdroid
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -14,21 +13,13 @@ data class Question(val question: String, val choices: List<String>, val answer:
 
 class Questions : AppCompatActivity() {
     private var totalQuestions: Int = 0
-    private lateinit var topic: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_questions)
-//        if (savedInstanceState != null) {
-//            // Restore the saved state
-//            currentQuestionIndex = savedInstanceState.getInt("currentQuestionIndex", 0)
-//            totalCorrectQuestions = savedInstanceState.getInt("totalCorrectQuestions", 0)
-//            //topic = savedInstanceState.getString("topic") ?: ""
-//        }
 
-        var currentQuestionIndex = intent.getIntExtra("currentQuestionIndex", 0)
+        val currentQuestionIndex = intent.getIntExtra("currentQuestionIndex", 0)
         var totalCorrectQuestions = intent.getIntExtra("numQuestionsCorrect", 0)
-        Log.i("QUESTION", currentQuestionIndex.toString())
         val topic = intent.getStringExtra("topic")
         val topicQuestions = when(topic) {
             "Math" -> QuestionGenerator.generateMathQuestions()
@@ -43,6 +34,7 @@ class Questions : AppCompatActivity() {
 
         displayQuestion(currentQuestionIndex, topicQuestions, questionText, choices)
 
+        // show submit button if a radio button is selected
         choices.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId != -1) {
                 submitButton.visibility = Button.VISIBLE
@@ -51,13 +43,13 @@ class Questions : AppCompatActivity() {
             }
         }
 
+        // handles submit button clicked
         submitButton.setOnClickListener {
             val selectedChoice = findViewById<RadioButton>(choices.checkedRadioButtonId).text.toString()
             val lastQuestion = currentQuestionIndex == topicQuestions.size-1
             if(selectedChoice == topicQuestions[currentQuestionIndex].answer) {
                 totalCorrectQuestions++
             }
-            Log.i("QUESTION", currentQuestionIndex.toString())
             val intent = Intent(this, Answer::class.java)
             intent.putExtra("chosenAnswer", selectedChoice)
             intent.putExtra("correctAnswer", topicQuestions[currentQuestionIndex].answer)
@@ -71,15 +63,7 @@ class Questions : AppCompatActivity() {
         }
     }
 
-//    private fun saveInstanceState() {
-//        val outState = Bundle()
-//        // Save the index to the bundle
-//        outState.putInt("currentQuestionIndex", currentQuestionIndex)
-//        outState.putInt("totalCorrectQuestions", totalCorrectQuestions)
-//        onSaveInstanceState(outState)
-//    }
-
-    fun displayQuestion(currentQuestionIndex: Int, topicQuestions: List<Question>, questionText: TextView, choices: RadioGroup) {
+    private fun displayQuestion(currentQuestionIndex: Int, topicQuestions: List<Question>, questionText: TextView, choices: RadioGroup) {
         // Display the question text
         questionText.text = topicQuestions[currentQuestionIndex].question
 
