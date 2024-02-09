@@ -16,6 +16,8 @@ class Answer : AppCompatActivity() {
         val totalQuestions = intent.getIntExtra("totalQuestions", 0)
         val totalCorrect = intent.getIntExtra("numQuestionsCorrect", 0)
         val lastQuestion = intent.getBooleanExtra("lastQuestion", false)
+        val topic = intent.getStringExtra("topic")
+        val currIndex = intent.getIntExtra("currentQuestionIndex", 0)
 
 
         val selectedAnswerText = findViewById<TextView>(R.id.txt_chosen_answer)
@@ -23,7 +25,7 @@ class Answer : AppCompatActivity() {
         val scoreReport = findViewById<TextView>(R.id.txt_report)
         val nextButton = findViewById<Button>(R.id.btn_next)
 
-        selectedAnswerText.text = "You chose ${selectedAns}"
+        selectedAnswerText.text = "Your answer: ${selectedAns}"
         correctAnswerText.text = "The correct answer is: ${correctAns}"
         scoreReport.text = "You have ${totalCorrect} out of ${totalQuestions} correct"
         if(lastQuestion) {
@@ -35,6 +37,9 @@ class Answer : AppCompatActivity() {
         } else {
             nextButton.setOnClickListener{
                 val intent = Intent(this, Questions::class.java)
+                intent.putExtra("topic", topic)
+                intent.putExtra("currentQuestionIndex", currIndex+1)
+                intent.putExtra("numQuestionsCorrect", totalCorrect)
                 startActivity(intent)
             }
         }
