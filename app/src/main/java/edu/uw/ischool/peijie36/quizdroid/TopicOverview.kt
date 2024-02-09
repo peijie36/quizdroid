@@ -32,6 +32,8 @@ class TopicOverview : AppCompatActivity() {
         beginButton.setOnClickListener {
             val intent = Intent(this, Questions::class.java)
             intent.putExtra("topic", topic)
+            intent.putExtra("currentQuestionIndex", 0)
+            intent.putExtra("numQuestionsCorrect", 0)
             startActivity(intent)
         }
     }
