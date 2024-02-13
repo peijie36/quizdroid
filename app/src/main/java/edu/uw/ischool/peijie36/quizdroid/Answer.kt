@@ -7,9 +7,14 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class Answer : AppCompatActivity() {
+    private lateinit var topics: List<Topic>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_answer)
+
+        // get list of Topic objects
+        topics = (application as QuizApp).topicRepositiory.getTopics()
 
         val selectedAns = intent.getStringExtra("chosenAnswer")
         val correctAns = intent.getStringExtra("correctAnswer")

@@ -7,33 +7,30 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class TopicOverview : AppCompatActivity() {
+    private lateinit var topics: List<Topic>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_topic_overview)
 
-        val topic = intent.getStringExtra("topic")
-        val topicDescription = intent.getStringExtra("topicDescription")
-        val topicQuestions = when(topic) {
-            "Math" -> QuestionGenerator.generateMathQuestions()
-            "Physics" -> QuestionGenerator.generatePhysicsQuestions()
-            "Marvel Super Heroes" -> QuestionGenerator.generateMarvelQuestions()
-            else -> emptyList()
-        }
+        // get list of Topic objects
+        topics = (application as QuizApp).topicRepositiory.getTopics()
+
+        val selectedTopic = intent.getStringExtra("topic")
+        val topicObject = topics.find { it.title == selectedTopic }
 
         val topicHeaderView = findViewById<TextView>(R.id.txt_topic)
         val topicDescriptionView = findViewById<TextView>(R.id.txt_topic_description)
         val totalQuestionsView = findViewById<TextView>(R.id.txt_total_questions)
         val beginButton = findViewById<Button>(R.id.btn_begin)
 
-        topicHeaderView.text = topic
-        topicDescriptionView.text = topicDescription
-        totalQuestionsView.text = "Total number of questions: ${topicQuestions.size}"
+        topicHeaderView.text = selectedTopic
+        topicDescriptionView.text = topicObject?.longDescription
+        totalQuestionsView.text = "Total number of questions: ${topicObject?.questions?.size}"
 
         beginButton.setOnClickListener {
             val intent = Intent(this, Questions::class.java)
-            intent.putExtra("topic", topic)
-            intent.putExtra("currentQuestionIndex", 0)
-            intent.putExtra("numQuestionsCorrect", 0)
+            intent.putExtra("topic", selectedTopic)
             startActivity(intent)
         }
     }

@@ -11,9 +11,10 @@ id list_view_topics
 id rg_choices
 id txt_chosen_answer
 id txt_correct_answer
-id txt_item
 id txt_question
 id txt_report
+id txt_short_description
+id txt_title
 id txt_topic
 id txt_topic_description
 id txt_total_questions

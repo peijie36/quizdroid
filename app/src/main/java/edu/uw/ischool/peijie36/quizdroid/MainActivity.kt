@@ -7,28 +7,27 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
-    private val topics = listOf("Math", "Physics", "Marvel Super Heroes")
-
-    private val topicDescriptions = mapOf(
-        "Math" to "An area of knowledge that includes the topics of numbers, formulas and related structures, shapes and the spaces in which they are contained, and quantities and their changes.",
-        "Physics" to "the natural science of matter, involving the study of matter, its fundamental constituents, its motion and behavior through space and time, and the related entities of energy and force.",
-        "Marvel Super Heroes" to "fictional characters created by Marvel Comics, known for their heroic exploits, superhuman abilities, and memorable stories.",
-    )
+    private lateinit var topics: List<Topic>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // get list of Topic objects
+        topics = (application as QuizApp).topicRepositiory.getTopics()
+        // get list of Topic titles and short descriptions
+        val topicHeaders = topics.map { it.title to it.shortDescription }
+
+
         val topicListView = findViewById<ListView>(R.id.list_view_topics)
 
-        val adapter = ArrayAdapter(this, R.layout.list_item, R.id.txt_item, topics)
+        val adapter = ArrayAdapter(this, R.layout.list_item, R.id.txt_title, topicHeaders)
         topicListView.adapter = adapter
 
         topicListView.setOnItemClickListener { _, _, position, _ ->
-            val topic: String = topics[position]
+            val topic: String = topics[position].title
             val intent = Intent(this, TopicOverview::class.java)
             intent.putExtra("topic", topic)
-            intent.putExtra("topicDescription", topicDescriptions[topic])
             startActivity(intent)
         }
     }

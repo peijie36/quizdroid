@@ -3557,9 +3557,10 @@ int id transition_transform 0x7f0801dc
 int id triangle 0x7f0801dd
 int id txt_chosen_answer 0x7f0801de
 int id txt_correct_answer 0x7f0801df
-int id txt_item 0x7f0801e0
 int id txt_question 0x7f0801e1
 int id txt_report 0x7f0801e2
+int id txt_short_description 0x7f0801fd
+int id txt_title 0x7f0801fe
 int id txt_topic 0x7f0801e3
 int id txt_topic_description 0x7f0801e4
 int id txt_total_questions 0x7f0801e5
