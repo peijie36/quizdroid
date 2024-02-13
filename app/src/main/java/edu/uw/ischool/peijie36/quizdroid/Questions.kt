@@ -51,12 +51,12 @@ class Questions : AppCompatActivity() {
             // Find the index of the selected RadioButton within the RadioGroup
             val selectedChoice = choices.indexOfChild(findViewById(selectedRadioButtonId))
             val lastQuestion = currentQuestionIndex == totalNumQuestions-1
-            if(selectedChoice == currQuestion.correctAnswer) { // selectedChoice is the actual answer | correct answer is the index of correct answer
+            if(selectedChoice == currQuestion.correctAnswer) {
                 totalCorrectQuestions++
             }
             val intent = Intent(this, Answer::class.java)
-            intent.putExtra("chosenAnswer", currQuestion.choices.get(selectedChoice))
-            intent.putExtra("correctAnswer", currQuestion.choices.get(currQuestion.correctAnswer))
+            intent.putExtra("chosenAnswer", currQuestion.choices[selectedChoice])
+            intent.putExtra("correctAnswer", currQuestion.choices[currQuestion.correctAnswer])
             intent.putExtra("numQuestionsCorrect", totalCorrectQuestions)
             intent.putExtra("lastQuestion", lastQuestion)
             intent.putExtra("topic", selectedTopic)

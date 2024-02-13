@@ -2,7 +2,6 @@ package edu.uw.ischool.peijie36.quizdroid
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -19,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         val topicHeaders = topics.map { it.title to it.shortDescription }
 
         val topicListView = findViewById<ListView>(R.id.list_view_topics)
-        val adapter = ArrayAdapter(this, R.layout.list_item, R.id.txt_title, topicHeaders)
+        val adapter = TopicAdapter(this, R.layout.list_item, topicHeaders)
         topicListView.adapter = adapter
 
         topicListView.setOnItemClickListener { _, _, position, _ ->
