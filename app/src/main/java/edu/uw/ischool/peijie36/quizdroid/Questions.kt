@@ -17,13 +17,14 @@ class Questions : AppCompatActivity() {
         setContentView(R.layout.activity_questions)
 
         // get list of Topic objects
-        topics = (application as QuizApp).topicRepositiory.getTopics()
+        topics = (application as QuizApp).topicRepository.getTopics()
 
         val currentQuestionIndex = intent.getIntExtra("currentQuestionIndex", 0)
         var totalCorrectQuestions = intent.getIntExtra("numQuestionsCorrect", 0)
         val selectedTopic = intent.getStringExtra("topic")
 
         val topicObject = topics.find { it.title == selectedTopic }
+        // get a list of all Questions from selected topic
         val topicQuestions = topicObject!!.questions
         totalNumQuestions = topicQuestions.size
 
@@ -44,17 +45,18 @@ class Questions : AppCompatActivity() {
 
         // handles submit button clicked
         submitButton.setOnClickListener {
+            val currQuestion = topicQuestions[currentQuestionIndex]
             // Get the ID of the selected RadioButton
             val selectedRadioButtonId = choices.checkedRadioButtonId
             // Find the index of the selected RadioButton within the RadioGroup
             val selectedChoice = choices.indexOfChild(findViewById(selectedRadioButtonId))
             val lastQuestion = currentQuestionIndex == totalNumQuestions-1
-            if(selectedChoice == topicQuestions[currentQuestionIndex].correctAnswer) { // selectedChoice is the actual answer | correct answer is the index of correct answer
+            if(selectedChoice == currQuestion.correctAnswer) { // selectedChoice is the actual answer | correct answer is the index of correct answer
                 totalCorrectQuestions++
             }
             val intent = Intent(this, Answer::class.java)
-            intent.putExtra("chosenAnswer", selectedChoice)
-            intent.putExtra("correctAnswer", topicQuestions[currentQuestionIndex].correctAnswer)
+            intent.putExtra("chosenAnswer", currQuestion.choices.get(selectedChoice))
+            intent.putExtra("correctAnswer", currQuestion.choices.get(currQuestion.correctAnswer))
             intent.putExtra("numQuestionsCorrect", totalCorrectQuestions)
             intent.putExtra("lastQuestion", lastQuestion)
             intent.putExtra("topic", selectedTopic)

@@ -14,13 +14,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // get list of Topic objects
-        topics = (application as QuizApp).topicRepositiory.getTopics()
+        topics = (application as QuizApp).topicRepository.getTopics()
         // get list of Topic titles and short descriptions
         val topicHeaders = topics.map { it.title to it.shortDescription }
 
-
         val topicListView = findViewById<ListView>(R.id.list_view_topics)
-
         val adapter = ArrayAdapter(this, R.layout.list_item, R.id.txt_title, topicHeaders)
         topicListView.adapter = adapter
 

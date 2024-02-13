@@ -14,9 +14,10 @@ class TopicOverview : AppCompatActivity() {
         setContentView(R.layout.activity_topic_overview)
 
         // get list of Topic objects
-        topics = (application as QuizApp).topicRepositiory.getTopics()
+        topics = (application as QuizApp).topicRepository.getTopics()
 
         val selectedTopic = intent.getStringExtra("topic")
+        // get the Topic domain object equal to the topic clicked
         val topicObject = topics.find { it.title == selectedTopic }
 
         val topicHeaderView = findViewById<TextView>(R.id.txt_topic)
@@ -31,6 +32,8 @@ class TopicOverview : AppCompatActivity() {
         beginButton.setOnClickListener {
             val intent = Intent(this, Questions::class.java)
             intent.putExtra("topic", selectedTopic)
+            intent.putExtra("currentQuestionIndex", 0)
+            intent.putExtra("numQuestionsCorrect", 0)
             startActivity(intent)
         }
     }
