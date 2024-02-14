@@ -80,11 +80,11 @@
         "source": "C:\\Users\\Peijie Zheng\\.gradle\\daemon\\8.2\\edu.uw.ischool.peijie36.quizdroid.app-main-33:\\mipmap-mdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\Peijie Zheng\\.gradle\\daemon\\8.2\\edu.uw.ischool.peijie36.quizdroid.app-merged_res-31:\\xml_backup_rules.xml.flat",
-        "source": "C:\\Users\\Peijie Zheng\\.gradle\\daemon\\8.2\\edu.uw.ischool.peijie36.quizdroid.app-main-33:\\xml\\backup_rules.xml"
+        "merged": "edu.uw.ischool.peijie36.quizdroid.app-merged_res-31:/layout_activity_topic_overview.xml.flat",
+        "source": "edu.uw.ischool.peijie36.quizdroid.app-main-33:/layout/activity_topic_overview.xml"
     },
     {
-        "merged": "edu.uw.ischool.peijie36.quizdroid.app-merged_res-31:/layout_list_item.xml.flat",
-        "source": "edu.uw.ischool.peijie36.quizdroid.app-main-33:/layout/list_item.xml"
+        "merged": "C:\\Users\\Peijie Zheng\\.gradle\\daemon\\8.2\\edu.uw.ischool.peijie36.quizdroid.app-merged_res-31:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\Peijie Zheng\\.gradle\\daemon\\8.2\\edu.uw.ischool.peijie36.quizdroid.app-main-33:\\xml\\backup_rules.xml"
     }
 ]

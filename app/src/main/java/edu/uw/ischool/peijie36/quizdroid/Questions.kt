@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class Questions : AppCompatActivity() {
-    private lateinit var topics: List<Topic>
+    private lateinit var topicQuestions: List<Question>
     private var totalNumQuestions: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +17,7 @@ class Questions : AppCompatActivity() {
         setContentView(R.layout.activity_questions)
 
         // get list of Topic objects
-        topics = (application as QuizApp).topicRepository.getTopics()
+        val topics = (application as QuizApp).topicRepository.getTopics()
 
         val currentQuestionIndex = intent.getIntExtra("currentQuestionIndex", 0)
         var totalCorrectQuestions = intent.getIntExtra("numQuestionsCorrect", 0)
@@ -25,7 +25,7 @@ class Questions : AppCompatActivity() {
 
         val topicObject = topics.find { it.title == selectedTopic }
         // get a list of all Questions from selected topic
-        val topicQuestions = topicObject!!.questions
+        topicQuestions = topicObject!!.questions
         totalNumQuestions = topicQuestions.size
 
         val questionText = findViewById<TextView>(R.id.txt_question)
@@ -61,6 +61,7 @@ class Questions : AppCompatActivity() {
             intent.putExtra("lastQuestion", lastQuestion)
             intent.putExtra("topic", selectedTopic)
             intent.putExtra("currentQuestionIndex", currentQuestionIndex)
+            intent.putExtra("totalQuestions", totalNumQuestions)
 
             startActivity(intent)
         }
