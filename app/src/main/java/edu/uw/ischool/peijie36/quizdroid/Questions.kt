@@ -51,16 +51,16 @@ class Questions : AppCompatActivity() {
             // Find the index of the selected RadioButton within the RadioGroup
             val selectedChoice = choices.indexOfChild(findViewById(selectedRadioButtonId))
             val lastQuestion = currentQuestionIndex == totalNumQuestions-1
-            if(selectedChoice == currQuestion.correctAnswer) {
+            if(selectedChoice == currQuestion.answer-1) {
                 totalCorrectQuestions++
             }
             val intent = Intent(this, Answer::class.java)
-            intent.putExtra("chosenAnswer", currQuestion.choices[selectedChoice])
-            intent.putExtra("correctAnswer", currQuestion.choices[currQuestion.correctAnswer])
+            intent.putExtra("chosenAnswer", currQuestion.answers[selectedChoice])
+            intent.putExtra("correctAnswer", currQuestion.answers[currQuestion.answer-1])
             intent.putExtra("numQuestionsCorrect", totalCorrectQuestions)
             intent.putExtra("lastQuestion", lastQuestion)
             intent.putExtra("topic", selectedTopic)
-            intent.putExtra("currentQuestionIndex", currentQuestionIndex)
+            intent.putExtra("currentQuestionIndex", currentQuestionIndex-1)
             intent.putExtra("totalQuestions", totalNumQuestions)
 
             startActivity(intent)
@@ -69,13 +69,13 @@ class Questions : AppCompatActivity() {
 
     private fun displayQuestion(currentQuestionIndex: Int, topicQuestions: List<Question>, questionText: TextView, choices: RadioGroup) {
         // Display the question text
-        questionText.text = topicQuestions[currentQuestionIndex].question
+        questionText.text = topicQuestions[currentQuestionIndex].text
 
         // Clear existing radio buttons
         choices.removeAllViews()
 
         // Add new radio buttons for choices
-        for (choice in topicQuestions[currentQuestionIndex].choices) {
+        for (choice in topicQuestions[currentQuestionIndex].answers) {
             val radioButton = RadioButton(questionText.context)
             radioButton.text = choice
             choices.addView(radioButton)

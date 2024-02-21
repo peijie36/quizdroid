@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:key="data_url"
+        android:title="URL"
+        android:inputType="textUri"
+        android:defaultValue="http://tednewardsandbox.site44.com/questions.json" />
+
+    <EditTextPreference
+        android:layout_width="match_parent"
+        android:defaultValue="1"
+        android:inputType="number"
+        android:key="download_interval"
+        android:title="Download Interval (minutes)" />
+
+</PreferenceScreen>

@@ -1,17 +1,19 @@
 package edu.uw.ischool.peijie36.quizdroid
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
+import org.json.JSONArray
+import java.io.InputStream
 
 // Domain objects
 data class Topic(
     val title: String,
-    val shortDescription: String,
-    val longDescription: String,
+    val desc: String,
     val questions: List<Question>
 )
 
-data class Question(val question: String, val choices: List<String>, val correctAnswer: Int)
+data class Question(val text: String, val answer: Int, val answers: List<String>)
 
 
 // Repository
@@ -19,98 +21,53 @@ interface ITopicRepository {
     fun getTopics(): List<Topic>
 }
 
-class TopicRepository : ITopicRepository {
-    private val allTopics: List<Topic> = listOf(
-        Topic(
-            "Math",
-            "study of quality, structure, space, and change",
-            "An area of knowledge that includes the topics of numbers, formulas and related structures, shapes and the spaces in which they are contained, and quantities and their changes.",
-            listOf(
-                Question(
-                    "What is the value of the golden ratio (φ)?",
-                    listOf("1.618", "3.141", "2.718", "0.618"),
-                    0
-                ),
-                Question(
-                    "How many sides does a octagon have?",
-                    listOf("5", "6", "7", "8"),
-                    3
-                ),
-                Question(
-                    "What is the area of a square with side length 6 units?",
-                    listOf("24", "30", "36", "42"),
-                    2
-                )
-            )
-        ),
-        Topic(
-            "Physics",
-            "study of nature, focusing on the physical plane of motion, force, and energy",
-            "The natural science of matter, involving the study of matter, its fundamental constituents, its motion and behavior through space and time, and the related entities of energy and force.",
-            listOf(
-                Question(
-                    "What is the force that pulls objects towards the center of the Earth?",
-                    listOf("Gravity", "Magnetism", "Friction", "Tension"),
-                    0
-                ),
-                Question(
-                    "Which scientist formulated the laws of motion?",
-                    listOf(
-                        "Albert Einstein",
-                        "Isaac Newton",
-                        "Galileo Galilei",
-                        "Nikola Tesla"
-                    ),
-                    1
-                ),
-                Question(
-                    "Which law states that force between two point charges is directly proportional to the product of their charges and inversely proportional to the square of the distance between them?",
-                    listOf(
-                        "Coulomb's Law",
-                        "Newton's Second Law",
-                        "Faraday's Law",
-                        "Ohm's Law"
-                    ),
-                    0
-                ),
-                Question(
-                    "What is the study of the motion of air and other gases?",
-                    listOf(
-                        "Thermodynamics",
-                        "Aerodynamics",
-                        "Hydrodynamics",
-                        "Electrodynamics"
-                    ),
-                    1
-                )
-            )
-        ),
-        Topic(
-            "Marvel Super Heroes",
-            "fictional characters franchised by Marvel",
-            "Fictional characters created by Marvel Comics, known for their heroic exploits, superhuman abilities, and memorable stories.",
-            listOf(
-                Question(
-                    "Who is the alter ego of Spider-Man?",
-                    listOf("Peter Parker", "Tony Stark", "Bruce Wayne", "Clark Kent"),
-                    0
-                ),
-                Question(
-                    "What metal is Captain America's shield made of?",
-                    listOf("Vibranium", "Adamantium", "Titanium", "Uru"),
-                    0
-                ),
-                Question(
-                    "Which Marvel character is known as the Sorcerer Supreme?",
-                    listOf("Scarlet Witch", "Ghost Rider", "Doctor Strange", "Mystique"),
-                    2
-                )
-            )
-        )
-    )
-
+class TopicRepository(private val context: Context) : ITopicRepository {
     override fun getTopics(): List<Topic> {
-        return allTopics
+        val topics = mutableListOf<Topic>()
+        val fileName = "questions.json"
+        val jsonString = readJSONFromAsset(fileName)
+        jsonString?.let {
+            try {
+                val jsonArray = JSONArray(it)
+                for (i in 0 until jsonArray.length()) {
+                    val topicObject = jsonArray.getJSONObject(i)
+                    val topicTitle = topicObject.getString("title")
+                    val topicDesc = topicObject.getString("desc")
+                    val topicQuestionsJSON = topicObject.getJSONArray("questions")
+
+                    val questions = mutableListOf<Question>()
+                    for (j in 0 until topicQuestionsJSON.length()) {
+                        val questionObject = topicQuestionsJSON.getJSONObject(j)
+                        val questionText = questionObject.getString("text")
+                        val questionAnswer = questionObject.getInt("answer")
+                        val questionAnswers = questionObject.getJSONArray("answers")
+                        val answers = mutableListOf<String>()
+                        for (k in 0 until questionAnswers.length()) {
+                            answers.add(questionAnswers.getString(k))
+                        }
+                        val question = Question(questionText, questionAnswer, answers)
+                        questions.add(question)
+                    }
+                    val topic = Topic(topicTitle, topicDesc, questions)
+                    topics.add(topic)
+                }
+            } catch (e: Exception) {
+                Log.e("QuizApp", "Error: ", e)
+            }
+        }
+        return topics
+    }
+
+    private fun readJSONFromAsset(fileName: String): String? {
+        var json: String? = null
+        try {
+            val inputStream: InputStream = context.assets.open(fileName)
+            json = inputStream.bufferedReader().use { it.readText() }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            return null
+        }
+        return json
     }
 }
 
@@ -120,7 +77,7 @@ class QuizApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        topicRepository = TopicRepository()
+        topicRepository = TopicRepository(applicationContext)
         Log.d("QuizApp", "QuizApp is loading and running")
     }
 }

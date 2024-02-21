@@ -26,7 +26,7 @@ class TopicOverview : AppCompatActivity() {
         val beginButton = findViewById<Button>(R.id.btn_begin)
 
         topicHeaderView.text = selectedTopic
-        topicDescriptionView.text = topicObject?.longDescription
+        topicDescriptionView.text = topicObject?.desc
         totalQuestionsView.text = "Total number of questions: ${topicObject?.questions?.size}"
 
         beginButton.setOnClickListener {
