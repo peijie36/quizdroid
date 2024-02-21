@@ -19,7 +19,7 @@ class Answer : AppCompatActivity() {
         val selectedTopic = intent.getStringExtra("topic")
         val currIndex = intent.getIntExtra("currentQuestionIndex", 0)
         val totalNumQuestions = intent.getIntExtra("totalQuestions", 0)
-
+        val questionsFile = intent.getStringExtra("customQuestions")
 
 
         val selectedAnswerText = findViewById<TextView>(R.id.txt_chosen_answer)
@@ -42,6 +42,7 @@ class Answer : AppCompatActivity() {
                 intent.putExtra("topic", selectedTopic)
                 intent.putExtra("currentQuestionIndex", currIndex+1)
                 intent.putExtra("numQuestionsCorrect", totalCorrect)
+                intent.putExtra("customQuestions", questionsFile)
                 startActivity(intent)
             }
         }

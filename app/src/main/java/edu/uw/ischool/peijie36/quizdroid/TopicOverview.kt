@@ -13,8 +13,9 @@ class TopicOverview : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_topic_overview)
 
+        val questionsFile = intent.getStringExtra("customQuestions")
         // get list of Topic objects
-        topics = (application as QuizApp).topicRepository.getTopics()
+        topics = (application as QuizApp).topicRepository.getTopics(questionsFile!!)
 
         val selectedTopic = intent.getStringExtra("topic")
         // get the Topic domain object equal to the topic clicked
@@ -34,6 +35,7 @@ class TopicOverview : AppCompatActivity() {
             intent.putExtra("topic", selectedTopic)
             intent.putExtra("currentQuestionIndex", 0)
             intent.putExtra("numQuestionsCorrect", 0)
+            intent.putExtra("customQuestions", questionsFile)
             startActivity(intent)
         }
     }

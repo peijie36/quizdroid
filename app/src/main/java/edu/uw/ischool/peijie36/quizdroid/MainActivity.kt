@@ -15,9 +15,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(findViewById(R.id.action_tool_bar))
+        val questionsFile = "questions.json"
 
         // get list of Topic objects
-        topics = (application as QuizApp).topicRepository.getTopics()
+        topics = (application as QuizApp).topicRepository.getTopics(questionsFile)
         // get list of Topic titles and short descriptions
         val topicHeaders = topics.map { it.title to it.desc }
 
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             val topic: String = topics[position].title
             val intent = Intent(this, TopicOverview::class.java)
             intent.putExtra("topic", topic)
+            intent.putExtra("customQuestions", questionsFile)
             startActivity(intent)
         }
     }

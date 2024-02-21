@@ -18,13 +18,12 @@ data class Question(val text: String, val answer: Int, val answers: List<String>
 
 // Repository
 interface ITopicRepository {
-    fun getTopics(): List<Topic>
+    fun getTopics(fileName: String): List<Topic>
 }
 
 class TopicRepository(private val context: Context) : ITopicRepository {
-    override fun getTopics(): List<Topic> {
+    override fun getTopics(fileName: String): List<Topic> {
         val topics = mutableListOf<Topic>()
-        val fileName = "questions.json"
         val jsonString = readJSONFromAsset(fileName)
         jsonString?.let {
             try {

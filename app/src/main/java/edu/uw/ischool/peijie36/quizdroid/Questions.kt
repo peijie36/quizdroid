@@ -16,12 +16,14 @@ class Questions : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_questions)
 
-        // get list of Topic objects
-        val topics = (application as QuizApp).topicRepository.getTopics()
-
+        val questionsFile = intent.getStringExtra("customQuestions")
         val currentQuestionIndex = intent.getIntExtra("currentQuestionIndex", 0)
         var totalCorrectQuestions = intent.getIntExtra("numQuestionsCorrect", 0)
         val selectedTopic = intent.getStringExtra("topic")
+
+        // get list of Topic objects
+        val topics = (application as QuizApp).topicRepository.getTopics(questionsFile!!)
+
 
         val topicObject = topics.find { it.title == selectedTopic }
         // get a list of all Questions from selected topic
@@ -60,8 +62,9 @@ class Questions : AppCompatActivity() {
             intent.putExtra("numQuestionsCorrect", totalCorrectQuestions)
             intent.putExtra("lastQuestion", lastQuestion)
             intent.putExtra("topic", selectedTopic)
-            intent.putExtra("currentQuestionIndex", currentQuestionIndex-1)
+            intent.putExtra("currentQuestionIndex", currentQuestionIndex)
             intent.putExtra("totalQuestions", totalNumQuestions)
+            intent.putExtra("customQuestions", questionsFile)
 
             startActivity(intent)
         }

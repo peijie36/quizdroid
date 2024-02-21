@@ -1,0 +1,70 @@
+[
+  {
+    "title": "Math",
+    "desc": "study of quality, structure, space, and change",
+    "questions": [
+      {
+        "text": "What is the value of the golden ratio (φ)?",
+        "answer": "1",
+        "answers": ["1.618", "3.141", "2.718", "0.618"]
+      },
+      {
+        "text": "How many sides does an octagon have?",
+        "answer": "4",
+        "answers": ["5", "6", "7", "8"]
+      },
+      {
+        "text": "What is the area of a square with a side length of 6 units?",
+        "answer": "3",
+        "answers": ["24", "30", "36", "42"]
+      }
+    ]
+  },
+  {
+    "title": "Physics",
+    "desc": "study of nature, focusing on the physical plane of motion, force, and energy",
+    "questions": [
+      {
+        "text": "What is the force that pulls objects towards the center of the Earth?",
+        "answer": "1",
+        "answers": ["Gravity", "Magnetism", "Friction", "Tension"]
+      },
+      {
+        "text": "Which scientist formulated the laws of motion?",
+        "answer": "2",
+        "answers": ["Albert Einstein", "Isaac Newton", "Galileo Galilei", "Nikola Tesla"]
+      },
+      {
+        "text": "Which law states that the force between two point charges is directly proportional to the product of their charges and inversely proportional to the square of the distance between them?",
+        "answer": "1",
+        "answers": ["Coulomb's Law", "Newton's Second Law", "Faraday's Law", "Ohm's Law"]
+      },
+      {
+        "text": "What is the study of the motion of air and other gases?",
+        "answer": "2",
+        "answers": ["Thermodynamics", "Aerodynamics", "Hydrodynamics", "Electrodynamics"]
+      }
+    ]
+  },
+  {
+    "title": "Marvel Super Heroes",
+    "desc": "fictional characters franchised by Marvel",
+    "questions": [
+      {
+        "text": "Who is the alter ego of Spider-Man?",
+        "answer": "1",
+        "answers": ["Peter Parker", "Tony Stark", "Bruce Wayne", "Clark Kent"]
+      },
+      {
+        "text": "What metal is Captain America's shield made of?",
+        "answer": "1",
+        "answers": ["Vibranium", "Adamantium", "Titanium", "Uru"]
+      },
+      {
+        "text": "Which Marvel character is known as the Sorcerer Supreme?",
+        "answer": "3",
+        "answers": ["Scarlet Witch", "Ghost Rider", "Doctor Strange", "Mystique"]
+      }
+    ]
+  }
+]
