@@ -15,8 +15,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(findViewById(R.id.action_tool_bar))
-        val questionsFile = "questions.json"
 
+        val questionsFile = "questions.json"
         // get list of Topic objects
         topics = (application as QuizApp).topicRepository.getTopics(questionsFile)
         // get list of Topic titles and short descriptions

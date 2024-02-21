@@ -62,8 +62,8 @@ class TopicRepository(private val context: Context) : ITopicRepository {
         try {
             val inputStream: InputStream = context.assets.open(fileName)
             json = inputStream.bufferedReader().use { it.readText() }
-        } catch (ex: Exception) {
-            ex.printStackTrace()
+        } catch (e: Exception) {
+            Log.e("QuizApp", "Error: ", e)
             return null
         }
         return json

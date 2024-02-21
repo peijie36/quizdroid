@@ -14,10 +14,11 @@ class TopicOverview : AppCompatActivity() {
         setContentView(R.layout.activity_topic_overview)
 
         val questionsFile = intent.getStringExtra("customQuestions")
+        val selectedTopic = intent.getStringExtra("topic")
+
         // get list of Topic objects
         topics = (application as QuizApp).topicRepository.getTopics(questionsFile!!)
 
-        val selectedTopic = intent.getStringExtra("topic")
         // get the Topic domain object equal to the topic clicked
         val topicObject = topics.find { it.title == selectedTopic }
 
